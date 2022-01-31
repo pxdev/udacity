@@ -1,5 +1,7 @@
+
 /* Empty JS object to act as endpoint for all routes */
-projectData = {};
+const appData = {};
+const data = [];
 
 /* Express to run server and routes */
 const express = require('express');
@@ -16,6 +18,7 @@ const cors = require('cors');
 app.use(cors());
 
 /* Initialize the main project folder*/
+// Note: the .get('/') requests will be blocked.
 app.use(express.static('website'));
 
 const port = 3000;
@@ -23,29 +26,10 @@ const port = 3000;
 const server = app.listen(port, listening);
 function listening(){
     // console.log(server);
-    console.log(`running on localhost: ${port}`);
+    console.log(`server running on localhost: ${port}`);
 };
 
-// GET route
-app.get('/all', sendData);
-
-function sendData (request, response) {
-    response.send(projectData);
-};
-
-// POST route
-app.post('/add', callBack);
-
-function callBack(req,res){
-    res.send('POST received');
-}
-
-// POST an animal
-const data = [];
-
-app.post('/animal', addAnimal);
-
-function addAnimal (req,res){
-    data.push(req.body);
-};
-
+app.post('/add', function (request, response) {
+    let data = request.body;
+    console.log(data);
+})
