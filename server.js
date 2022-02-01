@@ -30,6 +30,6 @@ function listening(){
 };
 
 app.post('/add', function (request, response) {
-    let data = request.body;
-    console.log(data);
+    data.push(req.body);
+    console.log(data)
 })
