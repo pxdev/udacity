@@ -3,22 +3,32 @@
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather'
 let apiKey = '3a413027d425bd99f5273e74788f6d14';
 
+
+let resultCity = document.getElementById('resultCity')
+let resultDegree = document.getElementById('resultDegree')
+
+
 document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(e){
-    const zipCode =  document.getElementById('zip').value;
+    const zipInput =  document.getElementById('zipInput').value;
 
-    fetchWeatherData(baseURL,zipCode, apiKey)
+    fetchWeatherData(baseURL,zipInput, apiKey)
 }
 
 
-const fetchWeatherData = async (baseURL, zipCode, key)=>{
+const fetchWeatherData = async (baseURL, zipInput, apiKey)=>{
 
-    const response = await fetch(`${baseURL}?zip=${zipCode},us&units=standard&APPID=${apiKey}`)
+    const response = await fetch(`${baseURL}?zip=${zipInput},us&units=imperial&APPID=${apiKey}`)
 
     try {
         const data = await response.json();
-        console.log(data.name)
+
+        resultCity.textContent = data.name;
+        resultDegree.textContent = data.main.temp.toFixed(1);
+
+
+        console.log(data)
 
         return data;
 
