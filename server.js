@@ -1,7 +1,6 @@
 
 /* Empty JS object to act as endpoint for all routes */
-const appData = {};
-const data = [];
+const projectData = {};
 
 /* Express to run server and routes */
 const express = require('express');
@@ -29,7 +28,17 @@ function listening(){
     console.log(`server running on localhost: ${port}`);
 };
 
-app.post('/add', function (request, response) {
-    data.push(req.body);
-    console.log(data)
+
+
+// POST Route to store date, temp and user input in projectData
+app.post('/api/projectdata', (req, res) => {
+    const {date, temp, content} = req.body
+
+    console.log(req.body)
+
+    projectData[date] = {
+        temp,
+        content,
+    }
+    res.status(201).send()
 })

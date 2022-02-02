@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>Weather Journal</title>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="icon" href="/favicon.ico">
 </head>
 <body>
-<div id="app">
+<div id="app" class="app d-flex align-items-center">
 
     <div class="weather-container">
         <div class="weather-left">
@@ -24,23 +26,28 @@
             </div>
 
             <div class="degree-result">
-                <h2><span id="resultDegree">0</span><span>&deg;</span></h2>
-                <h3>Thunder</h3>
+                <h2><span id="resultTemperature">0</span><span>&deg;</span></h2>
+                <h3 id="resultWeather">Weather</h3>
                 <p class="tx-shade">Thursday, 12 Jan</p>
             </div>
 
+            <div class="feeling-result">
+                <p class="tx-shade">Your Felling</p>
+                <p id="resultFeeling"></p>
+            </div>
 
         </div>
         <div class="weather-right">
 
             <h1>Weather Journal App</h1>
             <div class="form-group">
-                <label for="zipInput">Enter zip here</label>
-                <input type="text" id="zipInput" placeholder="enter zip code here"/>
+                <label for="zipInput">Your Zip Code</label>
+                <input type="text" id="zipInput" placeholder="12060 , 10001"/>
+                <small class="form-note tx-shade">Only Zip Codes in United States</small>
             </div>
             <div class="form-group">
                 <label for="feelingInput">Feeling</label>
-                <textarea type="text" id="feelingInput"></textarea>
+                <textarea type="text" placeholder="happy , sad, ..." id="feelingInput"></textarea>
             </div>
             <div class="form-group">
                 <button id="generate" type="submit">Generate</button>
