@@ -1,52 +1,99 @@
-/*
-    Global Variables
-*/
+
+let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+let dateObj = new Date();
+let month = monthNames[dateObj.getMonth()];
+let day = String(dateObj.getDate());
+let year = dateObj.getFullYear();
+let newDate = day + ' '+ month  + ', ' + year;
+
+let resultCity = document.getElementById('resultCity')
+let resultTemperature = document.getElementById('resultTemperature')
+let resultFeeling = document.getElementById('resultFeeling')
+let resultDate = document.getElementById('resultDate')
+let resultWeather = document.getElementById('resultWeather')
+
 
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather'
 let apiKey = '3a413027d425bd99f5273e74788f6d14';
 
 
-let resultCity = document.getElementById('resultCity')
-let resultTemperature = document.getElementById('resultTemperature')
-let resultFeeling = document.getElementById('resultFeeling')
-let resultWeather = document.getElementById('resultWeather')
-
-
-let zipInput = document.getElementById('zipInput').value;
-
 
 document.getElementById('generate').addEventListener('click', performAction);
 
 
-function performAction(e) {
-    fetchWeatherData(baseURL, zipInput, apiKey)
-}
+postData = async (url = '', data = {})=> {
 
-/* fetch the data from weather api with zip code
-    https://openweathermap.org/current#zip
-*/
-const fetchWeatherData = async (baseURL, zipInput, apiKey) => {
-
-    const response = await fetch(`${baseURL}?zip=${zipInput},us&units=imperial&APPID=${apiKey}`)
-    const feelingInput = document.getElementById('feelingInput').value;
+     const res = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    });
 
     try {
-        const data = await response.json();
-
-        let feeling = feelingInput
-
-        resultCity.textContent = data.name;
-        resultTemperature.textContent = data.main.temp.toFixed(1);
-        resultFeeling.textContent = feeling;
-        resultWeather.textContent = data.weather[0].main;
-
-
-        console.log(data)
+        const data= await res.json();
         return data;
     } catch (error) {
-        console.log("error", error);
+        console.log(error)
+    }
+}
+
+performAction = async ()=> {
+
+    const zipCode = document.getElementById("zipInput").value;
+    const feelings = document.getElementById("feelingInput").value;
+    const url = `${baseURL}?zip=${zipCode},us&units=metric&APPID=${apiKey}`;
+
+     try {
+        fetchData(url)
+            .then(
+                function(data = {}) {
+                postData('/api/add-data', {
+                    date: newDate,
+                    city: data.name,
+                    weather: data.weather[0].description,
+                    temp: data.main.temp,
+                    feelings: feelings
+                }
+                    )
+                    .then(
+                        updateUi()
+                    );
+                }
+
+            );
+
+
+    } catch (error) {
+        console.log(error)
     }
 }
 
 
+fetchData = async (url)=> {
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+
+updateUi = async ()=> {
+    const req = await fetch('/api/all-data');
+
+    try {
+        const projectData = await req.json();
+        console.log(projectData)
+        resultDate.textContent = projectData.date
+        resultTemperature.textContent = projectData.temp.toFixed(1);
+        resultCity.textContent = projectData.city;
+        resultFeeling.textContent = projectData.feelings;
+        resultWeather.textContent = projectData.weather;
+
+    } catch (error) {
+        console.log(error)
+    }
+}

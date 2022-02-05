@@ -5,17 +5,12 @@
     padding: 0;
 }
 
-html {
-    height: 100%;
-
-}
 
 body {
     background: #312557;
     font-size: 16px;
     color: #fff;
     font-family: 'Lato', sans-serif;
-    height: 100%;
 
 }
 
@@ -35,12 +30,9 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.5;
 }
 
-.app {
-    height: 100%;
-}
 
 .weather-container {
-    margin: 0 auto;
+    margin: 5% auto;
     width: 100%;
     max-width: 800px;
     flex-wrap: wrap;
@@ -103,6 +95,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 70px;
     padding: 15px 0;
 }
+
+.degree-result h3 {
+    text-transform: capitalize;
+    padding: 5px 0;
+ }
 
 .degree-result h2 span:first-child {
     font-weight: 900;
