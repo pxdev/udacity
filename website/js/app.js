@@ -38,8 +38,7 @@ postData = async (url = '', data = {})=> {
     }
 }
 
-performAction = async ()=> {
-
+ function performAction(){
     const zipCode = document.getElementById("zipInput").value;
     const feelings = document.getElementById("feelingInput").value;
     const url = `${baseURL}?zip=${zipCode},us&units=metric&APPID=${apiKey}`;
