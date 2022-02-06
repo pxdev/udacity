@@ -17,7 +17,6 @@ const cors = require('cors');
 app.use(cors());
 
 /* Initialize the main project folder*/
-// Note: the .get('/') requests will be blocked.
 app.use(express.static('website'));
 
 const port = 3000;
@@ -29,7 +28,7 @@ function listening(){
 }
 
 
-// POST
+// POST Route
 
 app.post('/api/add-data', callBack);
 
@@ -45,7 +44,7 @@ function callBack(req,res){
     res.send(projectData)
 }
 
-// Get
+// Get Route
 app.get('/api/all-data', function(req, res) {
     res.send(projectData)
-});
+ });
