@@ -29,10 +29,8 @@ function listening(){
 }
 
 
-
-
-
 // POST
+
 app.post('/api/add-data', callBack);
 
 function callBack(req,res){
